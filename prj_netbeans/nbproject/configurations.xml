@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="69">
+  <logicalFolder name="root" displayName="root" projectFiles="true">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true"
+                   kind="SOURCE_LOGICAL_FOLDER">
+      <itemPath>../src/Appearance.h</itemPath>
+      <itemPath>../src/Boundingbox.h</itemPath>
+      <itemPath>../src/Camera.h</itemPath>
+      <itemPath>../src/Color.h</itemPath>
+      <itemPath>../src/Cube.h</itemPath>
+      <itemPath>../src/Entity.h</itemPath>
+      <itemPath>../src/Group.h</itemPath>
+      <itemPath>../src/Light.h</itemPath>
+      <itemPath>../src/Material.h</itemPath>
+      <itemPath>../src/Mesh.h</itemPath>
+      <itemPath>../src/Node.h</itemPath>
+      <itemPath>../src/Scene.h</itemPath>
+      <itemPath>../src/Shape.h</itemPath>
+      <itemPath>../src/Sphere.h</itemPath>
+      <itemPath>../src/Transform.h</itemPath>
+      <itemPath>../src/VVector.h</itemPath>
+      <itemPath>../src/manipulator.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true"
+                   kind="SOURCE_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true"
+                   kind="SOURCE_LOGICAL_FOLDER">
+      <itemPath>../src/Camera.cpp</itemPath>
+      <itemPath>../src/Cube.cpp</itemPath>
+      <itemPath>../src/Group.cpp</itemPath>
+      <itemPath>../src/Light.cpp</itemPath>
+      <itemPath>../src/Main.cpp</itemPath>
+      <itemPath>../src/Material.cpp</itemPath>
+      <itemPath>../src/Mesh.cpp</itemPath>
+      <itemPath>../src/Scene.cpp</itemPath>
+      <itemPath>../src/Transform.cpp</itemPath>
+      <itemPath>../src/manipulator.cpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="1">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <compilerSet>GNU|GNU</compilerSet>
+        <platform>2</platform>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <commandLine>-lGLU -lglut</commandLine>
+        </ccTool>
+      </compileType>
+    </conf>
+    <conf name="Release" type="1">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <compilerSet>GNU|GNU</compilerSet>
+        <platform>2</platform>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+      </compileType>
+    </conf>
+  </confs>
+</configurationDescriptor>
