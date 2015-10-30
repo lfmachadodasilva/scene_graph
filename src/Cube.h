@@ -8,17 +8,24 @@
 
 #include "VVector.h"
 #include "Shape.h"
-#include "Boundingbox.h"
 
 class Cube : public Shape {
 protected:
 	VVector size;
 	VVector vertices[8];
+	float texture;
+	float offset_factor, offset_units;
 public:
+	Cube(void) {
+		this->texture = 0.0f;
+	}
 	void setSize(VVector size) {
 		this->size = size;
 	}
-	BoundingBox getBoundingBox(void);
+	void setTextureSize(float texture) {
+		this->texture = texture;
+	}
+	void setOffSet(float factor, float units);
 	void draw(void);
 };
 #endif

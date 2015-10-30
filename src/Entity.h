@@ -8,7 +8,6 @@
 
 #include "Shape.h"
 #include "Appearance.h"
-#include "Boundingbox.h"
 
 class Entity : public Node {
 

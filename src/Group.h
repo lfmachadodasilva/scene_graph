@@ -7,7 +7,7 @@
 #define _GROUP_H_
 
 #include "Node.h"
-#include "Boundingbox.h"
+
 
 class Group : public Node {
 protected :

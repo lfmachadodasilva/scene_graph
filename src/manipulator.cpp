@@ -1,16 +1,7 @@
 #include "manipulator.h"
 #include "VVector.h"
 
-#ifdef WIN32
-#include <Windows.h>    /* includes only in MSWindows not in UNIX */
-//#include <gl/gl.h>     /* OpenGL functions*/
-//#include <gl/glu.h>    /* OpenGL utilitary functions*/
-#include <gl/glut.h>    /* OpenGL utilitary functions*/
-#else
-//#include <GL/gl.h>     /* OpenGL functions*/
-//#include <GL/glu.h>    /* OpenGL utilitary functions*/
-#include <GL/glut.h>    /* OpenGL utilitary functions*/
-#endif
+#include <gl/glut.h>
 
 #include <math.h>
 #include <stdio.h>

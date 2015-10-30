@@ -23,6 +23,9 @@
 #include "Transform.h"
 #include "Mesh.h"
 #include "Sphere.h"
+#include "Environ.h"
+#include "Fog.h"
+#include "Texture.h"
 
 static Scene * scene;
 
@@ -31,6 +34,17 @@ static Scene * scene;
 static void createScene(void) {
 
 	scene = new Scene();
+
+	#pragma region Fog
+	{
+		Environ * environ = new Environ();
+		Fog * fog = new Fog();
+		fog->setColor(0.0f, 0.0f, 0.0f, 0.0f);
+		fog->setDistance(1.0f, 3.0f);
+		environ->addNode(fog);
+		scene->addNode(environ);
+	}
+	#pragma endregion
 
 	#pragma region Camera
 	{//Create camera
@@ -46,6 +60,33 @@ static void createScene(void) {
 	}//---
 	#pragma endregion
 
+	#pragma region paper
+	{
+		Material * paperM = new Material();
+		paperM->setAmbient(0.7f, 0.7f, 0.7f, 1.0f);
+		paperM->setDiffuse(0.7f, 0.7f, 0.7f, 1.0f);
+		paperM->setSpeculate(0.3f, 0.3f, 0.3f, 1.0f);
+
+		Texture * paperTexture = new Texture();
+		paperTexture->setTexture(GL_TEXTURE_2D);
+		paperTexture->setType(GL_LINEAR);
+		paperTexture->loadTextureFile("opengl.bmp");
+
+		Transform * paperT = new Transform();
+		Cube * paper = new Cube();
+		paper->setSize(VVector(0.15f, 0.001f, 0.15f));
+		paper->setTextureSize(1.0f);
+		paper->setOffSet(0.75f, 1.0f);
+		Entity * paperE = new Entity();
+		paperE->setShape(paper);
+		paperE->setAppearence(paperTexture);
+		paperT->addNode(paperE);
+		paperT->translate(0.4f, 0.04f, 0.7f);
+		scene->addNode(paperT);
+
+	}
+	#pragma endregion
+
 	#pragma region Floor
 	{//Create floor
 		Material * floorM = new Material();
@@ -53,12 +94,18 @@ static void createScene(void) {
 		floorM->setDiffuse(0.7f, 0.7f, 0.7f, 1.0f);
 		floorM->setSpeculate(0.3f, 0.3f, 0.3f, 1.0f);
 
+		Texture * floorTexture = new Texture();
+		floorTexture->setTexture(GL_TEXTURE_2D);
+		floorTexture->setType(GL_LINEAR);
+		floorTexture->loadTextureFile("floor.bmp");
+
 		Transform * floorT = new Transform();
 		Cube * floorCube = new Cube();
 		floorCube->setSize(VVector(1.5f, 0.01f, 1.5f));
+		floorCube->setTextureSize(2.0f);
 		Entity * floorEntity = new Entity();
 		floorEntity->setShape(floorCube);
-		floorEntity->setAppearence(floorM);
+		floorEntity->setAppearence(floorTexture);
 		floorT->addNode(floorEntity);
 		floorT->translate(-0.25f, -0.301f, -0.25f);
 		scene->addNode(floorT);
@@ -68,18 +115,24 @@ static void createScene(void) {
 	#pragma region Table
 	{//Create Table		
 
-		Material * wood = new Material();
-		wood->setAmbient(0.4f, 0.2f, 0.0f, 1.0f);
-		wood->setDiffuse(0.4f, 0.2f, 0.0f, 1.0f);
-		wood->setSpeculate(0.3f, 0.3f, 0.3f, 1.0f);
+		Material * woodM = new Material();
+		woodM->setAmbient(0.4f, 0.2f, 0.0f, 1.0f);
+		woodM->setDiffuse(0.4f, 0.2f, 0.0f, 1.0f);
+		woodM->setSpeculate(0.3f, 0.3f, 0.3f, 1.0f);
+
+		Texture * woodT = new Texture();
+		woodT->setTexture(GL_TEXTURE_2D);
+		woodT->setType(GL_NEAREST);
+		woodT->loadTextureFile("wood.bmp");
 
 		{//Top table
 			Transform * tableTop = new Transform();
 			Cube * topTableCube = new Cube();
 			topTableCube->setSize(VVector(1.0f, 0.04f, 1.0f));
+			topTableCube->setTextureSize(1.0f);
 			Entity * topTableEntity = new Entity();
 			topTableEntity->setShape(topTableCube);
-			topTableEntity->setAppearence(wood);
+			topTableEntity->setAppearence(woodT);
 			tableTop->addNode(topTableEntity);
 			scene->addNode(tableTop);
 		}//---
@@ -88,9 +141,10 @@ static void createScene(void) {
 			Transform * frontLeftTableFeet = new Transform();
 			Cube * frontLeftTableFeetCube = new Cube();
 			frontLeftTableFeetCube->setSize(VVector(0.1f, 0.3f, 0.1f));
+			frontLeftTableFeetCube->setTextureSize(1.0f);
 			Entity * frontLeftTableFeetEntity = new Entity();
 			frontLeftTableFeetEntity->setShape(frontLeftTableFeetCube);
-			frontLeftTableFeetEntity->setAppearence(wood);
+			frontLeftTableFeetEntity->setAppearence(woodT);
 			frontLeftTableFeet->addNode(frontLeftTableFeetEntity);
 			frontLeftTableFeet->translate(0.9f, -0.3f, 0.9f); 
 			scene->addNode(frontLeftTableFeet);
@@ -100,9 +154,10 @@ static void createScene(void) {
 			Transform * frontRightTableFeet = new Transform();
 			Cube * frontRightTableFeetCube = new Cube();
 			frontRightTableFeetCube->setSize(VVector(0.1f, 0.3f, 0.1f));
+			frontRightTableFeetCube->setTextureSize(1.0f);
 			Entity * frontRightTableFeetEntity = new Entity();
 			frontRightTableFeetEntity->setShape(frontRightTableFeetCube);
-			frontRightTableFeetEntity->setAppearence(wood);
+			frontRightTableFeetEntity->setAppearence(woodT);
 			frontRightTableFeet->addNode(frontRightTableFeetEntity);
 			frontRightTableFeet->translate(0.0f, -0.3f, 0.9f); 
 			scene->addNode(frontRightTableFeet);
@@ -112,9 +167,10 @@ static void createScene(void) {
 			Transform * backLeftTableFeet = new Transform();
 			Cube * backLeftTableFeetCube = new Cube();
 			backLeftTableFeetCube->setSize(VVector(0.1f, 0.3f, 0.1f));
+			backLeftTableFeetCube->setTextureSize(1.0f);
 			Entity * backLeftTableFeetEntity = new Entity();
 			backLeftTableFeetEntity->setShape(backLeftTableFeetCube);
-			backLeftTableFeetEntity->setAppearence(wood);
+			backLeftTableFeetEntity->setAppearence(woodT);
 			backLeftTableFeet->addNode(backLeftTableFeetEntity);
 			backLeftTableFeet->translate(0.9f, -0.3f, 0.0f); 
 			scene->addNode(backLeftTableFeet);
@@ -124,9 +180,10 @@ static void createScene(void) {
 			Transform * backRightTableFeet = new Transform();
 			Cube * backRightTableFeetCube = new Cube();
 			backRightTableFeetCube->setSize(VVector(0.1f, 0.3f, 0.1f));
+			backRightTableFeetCube->setTextureSize(1.0f);
 			Entity * backRightTableFeetEntity = new Entity();
 			backRightTableFeetEntity->setShape(backRightTableFeetCube);
-			backRightTableFeetEntity->setAppearence(wood);
+			backRightTableFeetEntity->setAppearence(woodT);
 			backRightTableFeet->addNode(backRightTableFeetEntity);
 			backRightTableFeet->translate(0.0f, -0.3f, 0.0f); 
 			scene->addNode(backRightTableFeet);
@@ -199,7 +256,7 @@ static void createScene(void) {
 		bunnyMRed->setSpeculate(0.3f, 0.3f, 0.3f, 1.0f);
 
 		Mesh * bunny = new Mesh();
-		bunny->loadGeometry("../bunny.msh");
+		bunny->loadGeometry("bunny.msh");
 
 		Transform * bunnyT1 = new Transform();
 		Entity * bunny1Entity = new Entity();
@@ -254,33 +311,11 @@ static void createScene(void) {
 //-----------------------------------------------------------------------------------------------------------
 
 static void redraw(void) {
-	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
- glEnable(GL_DEPTH_TEST);
+	glEnable(GL_DEPTH_TEST);
 
 	scene->setupCamera();
-
-	////Draw axes
-	//glPushAttrib( GL_CURRENT_BIT | GL_TRANSFORM_BIT );
-	//glPushMatrix();
-	//glBegin(GL_LINES);
-	//{
-	//	glColor3f(1.0f, 0.0f, 0.0f);
- //       glVertex3f(-0.1f, 0.0f, 0.0f);
- //       glVertex3f(0.1f, 0.0f, 0.0f);
-
- //       glColor3f(0.0f, 1.0f, 0enfim.0f);
- //       glVertex3f(0.0f, -0.1f, 0.0f);
- //       glVertex3f(0.0f, 0.1f, 0.0f);
-
- //       glColor3f(0.0f, 0.0f, 1.0f);
- //       glVertex3f(0.0f, 0.0f, -0.1f);
- //       glVertex3f(0.0f, 0.0f, 0.1f);
-	//}
-	//glEnd();
-	//glPopMatrix();
-	//glPopAttrib();
-	////---
 
 	scene->setupLight();
 
@@ -315,7 +350,7 @@ int main(int argc, char *argv[]) {
     glutKeyboardFunc(keyboard);
     glutDisplayFunc(redraw);
     createScene();
-	   initialize();
+	initialize();
     glutMainLoop();
     return 0;
 }
